@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { PokedexWrapper, PokedexImage, ControlButtonRight, ScreenOverlay, PokedexParentContainer, ControlButtonLeft, SubmitButton, NamePokemon, PokemonImg, Desc, Tipo, ID } from './Styledpokedex';
+import { PokedexWrapper, PokedexImage, ControlButtonRight, ScreenOverlay, PokedexParentContainer, ControlButtonLeft, ControlButtonUp, ControlButtonDown, SubmitButton, NamePokemon, PokemonImg, Desc, Tipo, ID } from './Styledpokedex';
 
 // Interface para os dados do Pokémon
 interface Pokemon {
@@ -73,6 +73,8 @@ const Pokedex: React.FC = () => {
                 {/* Botões de controle */}
                 <ControlButtonRight onClick={handleNextPokemon}></ControlButtonRight>
                 <ControlButtonLeft onClick={handlePreviousPokemon}></ControlButtonLeft>
+                <ControlButtonUp onClick={handleNextPokemon}></ControlButtonUp>
+                <ControlButtonDown onClick={handlePreviousPokemon}></ControlButtonDown>
                 
                 {/* Campo de input e botão de busca */}
                 <NamePokemon

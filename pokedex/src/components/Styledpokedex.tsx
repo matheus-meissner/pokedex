@@ -26,6 +26,7 @@ export const PokedexImage = styled.img`
     height: auto;
     max-width: 100vw; /* Garante que não ultrapasse a largura da tela */
     filter: drop-shadow(-10px 20px 8px rgba(0, 0, 0, 1));
+    border-radius: 10px;
 `;
 
 // Tela da Pokédex (Exemplo)
@@ -74,6 +75,20 @@ export const ControlButtonRight = styled(Button)`
 export const ControlButtonLeft = styled(Button)`
     top: 50%;  /* Ajuste conforme necessário */
     left: 46%; /* Ajuste conforme necessário */
+    width: 33px;
+    height: 29px;
+`;
+
+export const ControlButtonUp = styled(Button)`
+    top: 47%;  /* Ajuste conforme necessário */
+    left: 50.3%; /* Ajuste conforme necessário */
+    width: 33px;
+    height: 29px;
+`;
+
+export const ControlButtonDown = styled(Button)`
+    top: 52.5%;  /* Ajuste conforme necessário */
+    left: 50.3%; /* Ajuste conforme necessário */
     width: 33px;
     height: 29px;
 `;
