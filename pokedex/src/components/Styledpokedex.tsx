@@ -132,20 +132,37 @@ export const Desc = styled.div`
 `;
 
 
-export const Tipo = styled.p`
+// Criando um componente de estilo condicional
+export const Tipo = styled.p<{ typeCount: number }>`
     position: absolute;
     color: white;
-    top: 248px;
-    left: 413px; /* left: 435px; */
+    top: 252px;
+    left: 420px;
     white-space: nowrap;
-    font-size: 15px;
-`
+    font-size: 13.5px;
+    
+    /* Se houver apenas um tipo, centralizar o texto */
+    ${({ typeCount }) => typeCount === 1 && `
+        text-align: center;
+        left: 440px; /* Ajuste para centralizar completamente */
+    `}
+`;
 
-export const ID = styled.p`
+export const ID = styled.p<{ id: number }>`
     position: absolute;
     color: white;
     top: 248px;
-    left: 578px; /* left: 589px; */
+    left: 591px; /* left: 589px; */
     white-space: nowrap;
     font-size: 15px;
+
+    /* Se tiver 2 casas decimais */
+    ${({ id }) => id >= 10 && id < 100 && `
+        left: 589px; /* Ajuste para centralizar completamente */
+    `}
+
+    /* Se tiver 3 casas decimais */
+    ${({ id }) => id >= 100 && `
+        left: 583px; /* Ajuste para centralizar completamente */
+    `}
 `

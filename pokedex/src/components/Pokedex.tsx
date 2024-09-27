@@ -103,9 +103,10 @@ const Pokedex: React.FC = () => {
                                 <span>{pokemon.stats.find(stat => stat.stat.name === 'hp')?.base_stat}</span>
                               </div>
                             </Desc>
-
-                            <Tipo>{pokemon.types.map((type) => type.type.name).join(', ')}</Tipo>
-                            <ID>#{pokemon.id}</ID>
+                            <Tipo typeCount={pokemon.types.length}>
+                              {pokemon.types.slice(0, 2).map((type) => type.type.name).join(', ')}
+                            </Tipo>
+                            <ID id={pokemon.id}>#{pokemon.id}</ID>
                         </div>
                     )}
                 </ScreenOverlay>
