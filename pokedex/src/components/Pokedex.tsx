@@ -5,19 +5,27 @@ import { PokedexWrapper, PokedexImage, ControlButtonRight, ScreenOverlay, Pokede
 interface Pokemon {
     name: string;
     id: number;
-    types: { type: { name: string } }[]; // Atualizando para refletir a estrutura correta da API
+    types: { type: { name: string } }[];
     abilities: { ability: { name: string } }[];
-    sprite: string;
-    height: number; // Altura do Pokémon
-    weight: number; // Peso do Pokémon
-    stats: { base_stat: number; stat: { name: string } }[]; // Estatísticas do Pokémon
+    sprite: {
+        front_default: string;
+        front_shiny: string;
+        back_default: string;
+        back_shiny: string;
+    };
+    height: number;
+    weight: number;
+    stats: { base_stat: number; stat: { name: string } }[];
 }
 
 const Pokedex: React.FC = () => {
     const [pokemon, setPokemon] = useState<Pokemon | null>(null);
-    const [search, setSearch] = useState<string>(''); // Para pesquisa por nome
-    const [currentId, setCurrentId] = useState<number>(1); // Estado para o ID atual
+    const [search, setSearch] = useState<string>(''); 
+    const [currentId, setCurrentId] = useState<number>(1); 
     const [error, setError] = useState<string>('');
+    
+    // Restringindo currentImage para os valores permitidos
+    const [currentImage, setCurrentImage] = useState<'front_default' | 'front_shiny' | 'back_shiny' | 'back_default'>('front_default');
 
     // Função para buscar Pokémon por ID ou nome
     const fetchPokemon = async (idOrName: string | number) => {
@@ -34,74 +42,109 @@ const Pokedex: React.FC = () => {
                     id: data.id,
                     types: data.types,
                     abilities: data.abilities,
-                    sprite: data.sprites.front_default,
-                    height: data.height, // Adicionando altura
-                    weight: data.weight, // Adicionando peso
-                    stats: data.stats,   // Adicionando estatísticas
+                    sprite: {
+                        front_default: data.sprites.front_default,
+                        front_shiny: data.sprites.front_shiny,
+                        back_default: data.sprites.back_default,
+                        back_shiny: data.sprites.back_shiny,
+                    },
+                    height: data.height,
+                    weight: data.weight,
+                    stats: data.stats,
                 });
-                setCurrentId(data.id); // Atualiza o ID atual com o ID do Pokémon encontrado
-                setSearch(data.name); // Atualiza o campo de input com o nome do Pokémon
+                setCurrentId(data.id);
+                setSearch(data.name);
                 setError('');
+                setCurrentImage('front_default'); // Sempre começa em front_default
             }
         } catch (err) {
             setError("Erro ao buscar Pokémon");
         }
     };
 
-    // Efeito para buscar Pokémon quando o ID atual é alterado
     useEffect(() => {
         fetchPokemon(currentId);
     }, [currentId]);
 
-    // Funções para mudar o ID do Pokémon ao clicar nos botões
+    // Funções para alternar a imagem com base no estado atual
+    const handleToggleUp = () => {
+        if (!pokemon) return;
+
+        if (currentImage === 'front_default') {
+            setCurrentImage('front_shiny');
+        } else if (currentImage === 'front_shiny') {
+            setCurrentImage('back_shiny');
+        } else if (currentImage === 'back_shiny') {
+            setCurrentImage('back_default');
+        } else if (currentImage === 'back_default') {
+            setCurrentImage('front_default');
+        }
+    };
+
+    const handleToggleDown = () => {
+        if (!pokemon) return;
+
+        if (currentImage === 'back_shiny') {
+            setCurrentImage('front_shiny');
+        } else if (currentImage === 'front_shiny') {
+            setCurrentImage('front_default');
+        } else if (currentImage === 'front_default') {
+            setCurrentImage('back_default');
+        } else if (currentImage === 'back_default') {
+            setCurrentImage('back_shiny');
+        }
+    };
+
     const handleNextPokemon = () => {
-        setCurrentId((prevId) => prevId + 1); // Incrementa o ID
+        setCurrentId((prevId) => prevId + 1);
     };
 
     const handlePreviousPokemon = () => {
         if (currentId > 1) {
-            setCurrentId((prevId) => prevId - 1); // Decrementa o ID
+            setCurrentId((prevId) => prevId - 1);
         }
     };
 
     return (
         <PokedexParentContainer>
             <PokedexWrapper>
-                {/* Imagem da Pokédex */}
                 <PokedexImage src="/assets/images/pokedex.png" alt="Pokedex" />
                 
                 {/* Botões de controle */}
                 <ControlButtonRight onClick={handleNextPokemon}></ControlButtonRight>
                 <ControlButtonLeft onClick={handlePreviousPokemon}></ControlButtonLeft>
-                <ControlButtonUp onClick={handleNextPokemon}></ControlButtonUp>
-                <ControlButtonDown onClick={handlePreviousPokemon}></ControlButtonDown>
+                <ControlButtonUp onClick={handleToggleUp}></ControlButtonUp> {/* Alterna para a próxima imagem */}
+                <ControlButtonDown onClick={handleToggleDown}></ControlButtonDown> {/* Alterna para a imagem anterior */}
                 
                 {/* Campo de input e botão de busca */}
                 <NamePokemon
                     type="text"
                     placeholder=""
-                    value={search} // O valor é atualizado automaticamente
+                    value={search}
                     onChange={(e) => setSearch(e.target.value)}
                 />
                 <SubmitButton onClick={() => fetchPokemon(search)}></SubmitButton>
 
-                {/* Tela da Pokédex (área onde exibimos as informações do Pokémon) */}
+                {/* Tela da Pokédex */}
                 <ScreenOverlay>
                     {error && <p>{error}</p>}
                     {pokemon && (
                         <div className="pokemon-card">
-                            <PokemonImg src={pokemon.sprite} alt={pokemon.name} />
+                            <PokemonImg
+                              src={pokemon.sprite[currentImage]} // Exibe a imagem com base no estado atual
+                              alt={pokemon.name}
+                            />
                             <Desc>
                               <div>
                                 <strong>Height</strong>
-                                <span>{(pokemon.height / 10).toFixed(2)} m</span> {/* Converte decímetros para metros com uma casa decimal */}
+                                <span>{(pokemon.height / 10).toFixed(2)} m</span>
                               </div>
                               <div>
                                 <strong>Weight</strong>
                                 <span>
                                   {(pokemon.weight / 10) % 1 === 0 
-                                    ? (pokemon.weight / 10).toFixed(0) // Se for inteiro, nenhuma casa decimal
-                                    : (pokemon.weight / 10).toFixed(1)} kg {/* Se for float, exibe uma casa decimal */}
+                                    ? (pokemon.weight / 10).toFixed(0)
+                                    : (pokemon.weight / 10).toFixed(1)} kg
                                 </span>
                               </div>
                               <div>
