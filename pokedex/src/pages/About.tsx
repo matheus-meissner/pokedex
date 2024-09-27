@@ -13,11 +13,11 @@ const Title = styled.h1`
 `;
 
 const About: React.FC = () => {
-  return (
-    <Container>
-      <Title>About This Pokedex</Title>
+    return (
+        <Container>
+        <Title>About This Pokedex</Title>
     </Container>
-  );
+    );
 };
 
 export default About;
