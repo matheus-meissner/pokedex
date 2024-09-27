@@ -25,6 +25,7 @@ export const PokedexImage = styled.img`
     width: 150%;  /* Ajuste para caber no contêiner */
     height: auto;
     max-width: 100vw; /* Garante que não ultrapasse a largura da tela */
+    filter: drop-shadow(-10px 20px 8px rgba(0, 0, 0, 1));
 `;
 
 // Tela da Pokédex (Exemplo)
@@ -86,6 +87,9 @@ export const NamePokemon = styled.input`
     left: 23%;
     width: 72px;
     height: 35px;
+    font-size: 15px;
+    text-align: center;
+    font-family: 'Press Start 2P', cursive;
 
     /* Cor da barrinha piscante (caret) */
     caret-color: white;
@@ -103,23 +107,26 @@ export const NamePokemon = styled.input`
 export const Desc = styled.p`
     position: absolute;
     color: white;
-    top: -50px;
-    left: 420px;
+    top: -35px;
+    left: 412px;
     white-space: nowrap;
+    font-size: 15px;
 `
 
 export const Tipo = styled.p`
     position: absolute;
     color: white;
-    top: 240px;
+    top: 248px;
     left: 413px; /* left: 435px; */
     white-space: nowrap;
+    font-size: 15px;
 `
 
 export const ID = styled.p`
     position: absolute;
     color: white;
-    top: 241px;
+    top: 248px;
     left: 578px; /* left: 589px; */
     white-space: nowrap;
+    font-size: 15px;
 `

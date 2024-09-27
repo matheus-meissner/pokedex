@@ -14,8 +14,10 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0;
         font-family: 'Press Start 2P', cursive;
         overflow-x: hidden;
+        overflow-y: hidden;
         margin: 0;
         padding: 0;
         width: 100%;
+        background: linear-gradient(to bottom left, white, red);
     }
 `;

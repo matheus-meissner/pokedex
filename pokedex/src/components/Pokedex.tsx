@@ -1,34 +1,60 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PokedexWrapper, PokedexImage, ControlButtonRight, ScreenOverlay, PokedexParentContainer, ControlButtonLeft, SubmitButton, NamePokemon, PokemonImg, Desc, Tipo, ID } from './Styledpokedex';
 
 // Interface para os dados do Pokémon
 interface Pokemon {
     name: string;
     id: number;
-    types: string[];
-    abilities: string[];
+    types: { type: { name: string } }[]; // Atualizando para refletir a estrutura correta da API
+    abilities: { ability: { name: string } }[];
     sprite: string;
 }
 
 const Pokedex: React.FC = () => {
     const [pokemon, setPokemon] = useState<Pokemon | null>(null);
-    const [search, setSearch] = useState<string>('');
+    const [search, setSearch] = useState<string>(''); // Para pesquisa por nome
+    const [currentId, setCurrentId] = useState<number>(1); // Estado para o ID atual
     const [error, setError] = useState<string>('');
 
-    const fetchPokemon = async () => {
+    // Função para buscar Pokémon por ID ou nome
+    const fetchPokemon = async (idOrName: string | number) => {
         try {
-            const response = await fetch(`https://web-production-842d.up.railway.app/pokemon/${search}`);
+            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${idOrName}`);
             const data = await response.json();
 
             if (data.error) {
                 setError(data.error);
                 setPokemon(null);
             } else {
-                setPokemon(data);
+                setPokemon({
+                    name: data.name,
+                    id: data.id,
+                    types: data.types,
+                    abilities: data.abilities,
+                    sprite: data.sprites.front_default,
+                });
+                setCurrentId(data.id); // Atualiza o ID atual com o ID do Pokémon encontrado
+                setSearch(data.name); // Atualiza o campo de input com o nome do Pokémon
                 setError('');
             }
         } catch (err) {
             setError("Erro ao buscar Pokémon");
+        }
+    };
+
+    // Efeito para buscar Pokémon quando o ID atual é alterado
+    useEffect(() => {
+        fetchPokemon(currentId);
+    }, [currentId]);
+
+    // Funções para mudar o ID do Pokémon ao clicar nos botões
+    const handleNextPokemon = () => {
+        setCurrentId((prevId) => prevId + 1); // Incrementa o ID
+    };
+
+    const handlePreviousPokemon = () => {
+        if (currentId > 1) {
+            setCurrentId((prevId) => prevId - 1); // Decrementa o ID
         }
     };
 
@@ -39,17 +65,17 @@ const Pokedex: React.FC = () => {
                 <PokedexImage src="/assets/images/pokedex.png" alt="Pokedex" />
                 
                 {/* Botões de controle */}
-                <ControlButtonRight onClick={() => alert('Botão direito clicado')} />
-                <ControlButtonLeft onClick={() => alert('Botão esquerdo clicado')} />
+                <ControlButtonRight onClick={handleNextPokemon}></ControlButtonRight>
+                <ControlButtonLeft onClick={handlePreviousPokemon}></ControlButtonLeft>
                 
                 {/* Campo de input e botão de busca */}
                 <NamePokemon
                     type="text"
                     placeholder=""
-                    value={search}
+                    value={search} // O valor é atualizado automaticamente
                     onChange={(e) => setSearch(e.target.value)}
                 />
-                <SubmitButton onClick={fetchPokemon}></SubmitButton>
+                <SubmitButton onClick={() => fetchPokemon(search)}></SubmitButton>
 
                 {/* Tela da Pokédex (área onde exibimos as informações do Pokémon) */}
                 <ScreenOverlay>
@@ -57,8 +83,8 @@ const Pokedex: React.FC = () => {
                     {pokemon && (
                         <div className="pokemon-card">
                             <PokemonImg src={pokemon.sprite} alt={pokemon.name} />
-                            <Desc>{pokemon.abilities.join(', ')}</Desc>
-                            <Tipo>{pokemon.types.join(', ')}</Tipo>
+                            <Desc><strong>Habilidades: </strong>{pokemon.abilities.map((ability) => ability.ability.name).join(', ')}</Desc>
+                            <Tipo>{pokemon.types.map((type) => type.type.name).join(', ')}</Tipo>
                             <ID>#{pokemon.id}</ID>
                         </div>
                     )}
