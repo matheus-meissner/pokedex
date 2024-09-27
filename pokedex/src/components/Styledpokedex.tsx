@@ -87,7 +87,7 @@ export const NamePokemon = styled.input`
     left: 23%;
     width: 72px;
     height: 35px;
-    font-size: 15px;
+    font-size: 13px;
     text-align: center;
     font-family: 'Press Start 2P', cursive;
 
