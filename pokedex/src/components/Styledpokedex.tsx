@@ -56,6 +56,14 @@ export const Button = styled.button`
     cursor: pointer;
 `;
 
+export const ModalButton = styled(Button)`
+    top: 4%;  /* Ajuste conforme necessário */
+    left: 7%; /* Ajuste conforme necessário */
+    width: 57px;
+    height: 57px;
+    border-radius: 50%;
+`
+
 export const SubmitButton = styled(Button)`
     top: 47.8%;  /* Ajuste conforme necessário */
     left: 10%; /* Ajuste conforme necessário */

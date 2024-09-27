@@ -1,16 +1,22 @@
-import React from 'react';
-import Pokedex from './components/Pokedex';
+import React, { useState } from 'react';
 import { GlobalStyle } from './globalStyle';
+import InstructionsModal from './components/InstructionsModal';
+import Pokedex from './components/Pokedex';
 
 const App: React.FC = () => {
+  // Estado para controlar a abertura do modal
+  const [isModalOpen, setIsModalOpen] = useState(true);
+
   return (
     <>
-      {/* Aplica os estilos globais */}
       <GlobalStyle />
-        <Pokedex/>
+      <InstructionsModal 
+        isOpen={isModalOpen}  // Passa o estado de abertura do modal
+        onClose={() => setIsModalOpen(false)}  // Função para fechar o modal
+      />
+      <Pokedex /> {/* Adicione sua Pokedex aqui */}
     </>
   );
-};
-
+}
 
 export default App;

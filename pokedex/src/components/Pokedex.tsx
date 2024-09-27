@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { PokedexWrapper, PokedexImage, ControlButtonRight, ScreenOverlay, PokedexParentContainer, ControlButtonLeft, ControlButtonUp, ControlButtonDown, SubmitButton, NamePokemon, PokemonImg, Desc, Tipo, ID } from './Styledpokedex';
+import { PokedexWrapper, PokedexImage, ControlButtonRight, ScreenOverlay, PokedexParentContainer, ControlButtonLeft, ControlButtonUp, ControlButtonDown, SubmitButton, ModalButton, NamePokemon, PokemonImg, Desc, Tipo, ID } from './Styledpokedex';
+import InstructionsModal from './InstructionsModal'; // Certifique-se de ajustar o caminho para onde você criou o modal
 
 // Interface para os dados do Pokémon
 interface Pokemon {
@@ -23,7 +24,8 @@ const Pokedex: React.FC = () => {
     const [search, setSearch] = useState<string>(''); 
     const [currentId, setCurrentId] = useState<number>(1); 
     const [error, setError] = useState<string>('');
-    
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Estado para controlar o modal
+
     // Restringindo currentImage para os valores permitidos
     const [currentImage, setCurrentImage] = useState<'front_default' | 'front_shiny' | 'back_shiny' | 'back_default'>('front_default');
 
@@ -111,6 +113,7 @@ const Pokedex: React.FC = () => {
                 <PokedexImage src="/assets/images/pokedex.png" alt="Pokedex" />
                 
                 {/* Botões de controle */}
+                <ModalButton onClick={() => setIsModalOpen(true)}></ModalButton> {/* Abre o modal */}
                 <ControlButtonRight onClick={handleNextPokemon}></ControlButtonRight>
                 <ControlButtonLeft onClick={handlePreviousPokemon}></ControlButtonLeft>
                 <ControlButtonUp onClick={handleToggleUp}></ControlButtonUp> {/* Alterna para a próxima imagem */}
@@ -160,6 +163,9 @@ const Pokedex: React.FC = () => {
                     )}
                 </ScreenOverlay>
             </PokedexWrapper>
+
+            {/* Modal de Instruções */}
+            <InstructionsModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </PokedexParentContainer>
     );
 };
