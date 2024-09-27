@@ -34,9 +34,15 @@ export const ScreenOverlay = styled.div`
     left: 17%;
     width: 200px;
     height: 126px;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.1); /* rgb(72, 219, 251) */
 `;
+
+export const PokemonImg = styled.img`
+    position: absolute;
+    left: 40px;
+    top: 3px;
+    height: 100%;
+`
 
 // Botões interativos posicionados na imagem
 export const Button = styled.button`
@@ -82,7 +88,7 @@ export const NamePokemon = styled.input`
     height: 35px;
 
     /* Cor da barrinha piscante (caret) */
-    caret-color: red;
+    caret-color: white;
 
     /* Estilo do texto inserido */
     color: white;
@@ -92,4 +98,28 @@ export const NamePokemon = styled.input`
         border: 1px solid black;  /* Muda a borda ao focar */
         outline: none;           /* Remove a borda padrão do navegador */
     }
+`
+
+export const Desc = styled.p`
+    position: absolute;
+    color: white;
+    top: -50px;
+    left: 420px;
+    white-space: nowrap;
+`
+
+export const Tipo = styled.p`
+    position: absolute;
+    color: white;
+    top: 240px;
+    left: 413px; /* left: 435px; */
+    white-space: nowrap;
+`
+
+export const ID = styled.p`
+    position: absolute;
+    color: white;
+    top: 241px;
+    left: 578px; /* left: 589px; */
+    white-space: nowrap;
 `
