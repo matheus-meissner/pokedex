@@ -92,11 +92,15 @@ const Pokedex: React.FC = () => {
                             <Desc>
                               <div>
                                 <strong>Height</strong>
-                                <span>{pokemon.height} dm</span>
+                                <span>{(pokemon.height / 10).toFixed(2)} m</span> {/* Converte decímetros para metros com uma casa decimal */}
                               </div>
                               <div>
                                 <strong>Weight</strong>
-                                <span>{pokemon.weight} hg</span>
+                                <span>
+                                  {(pokemon.weight / 10) % 1 === 0 
+                                    ? (pokemon.weight / 10).toFixed(0) // Se for inteiro, nenhuma casa decimal
+                                    : (pokemon.weight / 10).toFixed(1)} kg {/* Se for float, exibe uma casa decimal */}
+                                </span>
                               </div>
                               <div>
                                 <strong>HP</strong>
