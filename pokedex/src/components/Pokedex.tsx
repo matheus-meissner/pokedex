@@ -8,6 +8,9 @@ interface Pokemon {
     types: { type: { name: string } }[]; // Atualizando para refletir a estrutura correta da API
     abilities: { ability: { name: string } }[];
     sprite: string;
+    height: number; // Altura do Pokémon
+    weight: number; // Peso do Pokémon
+    stats: { base_stat: number; stat: { name: string } }[]; // Estatísticas do Pokémon
 }
 
 const Pokedex: React.FC = () => {
@@ -32,6 +35,9 @@ const Pokedex: React.FC = () => {
                     types: data.types,
                     abilities: data.abilities,
                     sprite: data.sprites.front_default,
+                    height: data.height, // Adicionando altura
+                    weight: data.weight, // Adicionando peso
+                    stats: data.stats,   // Adicionando estatísticas
                 });
                 setCurrentId(data.id); // Atualiza o ID atual com o ID do Pokémon encontrado
                 setSearch(data.name); // Atualiza o campo de input com o nome do Pokémon
@@ -83,7 +89,21 @@ const Pokedex: React.FC = () => {
                     {pokemon && (
                         <div className="pokemon-card">
                             <PokemonImg src={pokemon.sprite} alt={pokemon.name} />
-                            <Desc><strong>Habilidades: </strong>{pokemon.abilities.map((ability) => ability.ability.name).join(', ')}</Desc>
+                            <Desc>
+                              <div>
+                                <strong>Height</strong>
+                                <span>{pokemon.height} dm</span>
+                              </div>
+                              <div>
+                                <strong>Weight</strong>
+                                <span>{pokemon.weight} hg</span>
+                              </div>
+                              <div>
+                                <strong>HP</strong>
+                                <span>{pokemon.stats.find(stat => stat.stat.name === 'hp')?.base_stat}</span>
+                              </div>
+                            </Desc>
+
                             <Tipo>{pokemon.types.map((type) => type.type.name).join(', ')}</Tipo>
                             <ID>#{pokemon.id}</ID>
                         </div>

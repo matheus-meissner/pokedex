@@ -104,14 +104,33 @@ export const NamePokemon = styled.input`
     }
 `
 
-export const Desc = styled.p`
+export const Desc = styled.div`
     position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; /* Define três colunas iguais */
+    gap: 10px; /* Espaço entre as colunas */
     color: white;
-    top: -35px;
-    left: 412px;
+    top: -22px;
+    left: 450px;
     white-space: nowrap;
     font-size: 15px;
-`
+
+    div {
+        display: flex;
+        flex-direction: column; /* Alinha o título e o valor verticalmente */
+        align-items: center; /* Centraliza os itens na coluna */
+    }
+
+    strong {
+        margin-bottom: 5px; /* Espaçamento entre o título e o valor */
+        font-size: 14px;
+    }
+
+    span {
+        font-size: 13px;
+    }
+`;
+
 
 export const Tipo = styled.p`
     position: absolute;
