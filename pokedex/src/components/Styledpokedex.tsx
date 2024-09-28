@@ -18,6 +18,10 @@ export const PokedexWrapper = styled.div`
     margin: 0 auto;
     position: relative;
     max-width: 100%;  /* Garante que o contêiner nunca ultrapasse a largura da tela */
+    
+    @media screen and (max-width: 700px){
+        left: 35px;
+    }
 `;
 
 // Imagem da Pokédex
@@ -27,6 +31,10 @@ export const PokedexImage = styled.img`
     max-width: 100vw; /* Garante que não ultrapasse a largura da tela */
     filter: drop-shadow(-10px 20px 8px rgba(0, 0, 0, 1));
     border-radius: 10px;
+
+    @media screen and (max-width: 700px){
+        width: 90%;
+    }
 `;
 
 // Tela da Pokédex (Exemplo)
@@ -37,6 +45,14 @@ export const ScreenOverlay = styled.div`
     width: 200px;
     height: 126px;
     background-color: rgba(0, 0, 0, 0.1); /* rgb(72, 219, 251) */
+
+    @media screen and (max-width: 700px){
+        top: 10.8%;
+        left: 10%;
+        width: 83px;
+        height: 53px;
+        background-color: rgba(0, 0, 0, 0.1);
+    }
 `;
 
 export const PokemonImg = styled.img`
@@ -44,12 +60,17 @@ export const PokemonImg = styled.img`
     left: 40px;
     top: 3px;
     height: 100%;
+
+    @media screen and (max-width: 700px){
+        top: 0;
+        left: 18%;
+    }
 `
 
 // Botões interativos posicionados na imagem
 export const Button = styled.button`
     position: absolute;
-    background: transparent;
+    background: blue;
     border: 1px solid transparent;
     border-radius: 5px;
     padding: 10px;
@@ -62,6 +83,11 @@ export const ModalButton = styled(Button)`
     width: 57px;
     height: 57px;
     border-radius: 50%;
+
+    @media screen and (max-width: 700px){
+        top: 0.5%;
+        left: 2%;
+    }
 `
 
 export const SubmitButton = styled(Button)`
@@ -70,6 +96,11 @@ export const SubmitButton = styled(Button)`
     width: 42px;
     height: 42px;
     border-radius: 50%;
+
+    @media screen and (max-width: 700px){
+        top: 20%;
+        left: 2%;
+    }
 `
 
 // Botão de controle (Exemplo)
@@ -78,6 +109,12 @@ export const ControlButtonRight = styled(Button)`
     left: 55%; /* Ajuste conforme necessário */
     width: 33px;
     height: 29px;
+
+    @media screen and (max-width: 700px){
+        top: 21%;
+        left: 34%;
+        width: 20px;
+    }
 `;
 
 export const ControlButtonLeft = styled(Button)`
@@ -85,6 +122,13 @@ export const ControlButtonLeft = styled(Button)`
     left: 46%; /* Ajuste conforme necessário */
     width: 33px;
     height: 29px;
+
+    @media screen and (max-width: 700px){
+        top: 21%;
+        left: 24%;
+        width: 20px;
+        height: 29px;
+    }
 `;
 
 export const ControlButtonUp = styled(Button)`
@@ -92,6 +136,13 @@ export const ControlButtonUp = styled(Button)`
     left: 50.3%; /* Ajuste conforme necessário */
     width: 33px;
     height: 29px;
+
+    @media screen and (max-width: 700px){
+        top: 19.3%;
+        left: 29%;
+        width: 20px;
+        height: 15px;
+    }
 `;
 
 export const ControlButtonDown = styled(Button)`
@@ -99,6 +150,13 @@ export const ControlButtonDown = styled(Button)`
     left: 50.3%; /* Ajuste conforme necessário */
     width: 33px;
     height: 29px;
+
+    @media screen and (max-width: 700px){
+        top: 23.5%;
+        left: 29%;
+        width: 20px;
+        height: 15px;
+    }
 `;
 
 
@@ -124,6 +182,14 @@ export const NamePokemon = styled.input`
     &:focus {
         border: 1px solid black;  /* Muda a borda ao focar */
         outline: none;           /* Remove a borda padrão do navegador */
+    }
+
+    @media screen and (max-width: 700px){
+        top: 22.3%;
+        left: 13%;
+        width: 30px;
+        height: 20px;
+        font-size: 8px;
     }
 `
 
