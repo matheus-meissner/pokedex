@@ -70,7 +70,7 @@ export const PokemonImg = styled.img`
 // Botões interativos posicionados na imagem
 export const Button = styled.button`
     position: absolute;
-    background: blue;
+    background: transparent;
     border: 1px solid transparent;
     border-radius: 5px;
     padding: 10px;
