@@ -19,5 +19,9 @@ export const GlobalStyle = createGlobalStyle`
         padding: 0;
         width: 100%;
         background: linear-gradient(to bottom left, white, red);
+
+        @media screen and (max-width: 700px) {
+            overflow-x: auto;
+        }
     }
 `;

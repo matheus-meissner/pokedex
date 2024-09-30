@@ -47,7 +47,7 @@ export const ScreenOverlay = styled.div`
     background-color: rgba(0, 0, 0, 0.1); /* rgb(72, 219, 251) */
 
     @media screen and (max-width: 700px){
-        top: 10.8%;
+        top: 11%;
         left: 10%;
         width: 83px;
         height: 53px;
@@ -98,8 +98,11 @@ export const SubmitButton = styled(Button)`
     border-radius: 50%;
 
     @media screen and (max-width: 700px){
-        top: 20%;
-        left: 2%;
+        top: 59vh;
+        left: 2vw;
+        width: 3em;
+        height: 3em;
+        background-color: white;
     }
 `
 
@@ -111,9 +114,11 @@ export const ControlButtonRight = styled(Button)`
     height: 29px;
 
     @media screen and (max-width: 700px){
-        top: 21%;
-        left: 34%;
-        width: 20px;
+        top: 60vh;
+        left: 72vw;
+        width: 2em;
+        height: 2em;
+        background-color: white;
     }
 `;
 
@@ -124,10 +129,11 @@ export const ControlButtonLeft = styled(Button)`
     height: 29px;
 
     @media screen and (max-width: 700px){
-        top: 21%;
-        left: 24%;
-        width: 20px;
-        height: 29px;
+        top: 60vh;
+        left: 58vw;
+        width: 2em;
+        height: 2em;
+        background-color: white;
     }
 `;
 
@@ -138,10 +144,11 @@ export const ControlButtonUp = styled(Button)`
     height: 29px;
 
     @media screen and (max-width: 700px){
-        top: 19.3%;
-        left: 29%;
-        width: 20px;
-        height: 15px;
+        top: 56vh;
+        left: 65vw;
+        width: 2em;
+        height: 2em;
+        background-color: white;
     }
 `;
 
@@ -152,10 +159,11 @@ export const ControlButtonDown = styled(Button)`
     height: 29px;
 
     @media screen and (max-width: 700px){
-        top: 23.5%;
-        left: 29%;
-        width: 20px;
-        height: 15px;
+        top: 64vh;
+        left: 65vw;
+        width: 2em;
+        height: 2em;
+        background-color: white;
     }
 `;
 
@@ -185,11 +193,11 @@ export const NamePokemon = styled.input`
     }
 
     @media screen and (max-width: 700px){
-        top: 22.3%;
-        left: 13%;
-        width: 30px;
-        height: 20px;
-        font-size: 8px;
+        top: 57vh;
+        left: 22vw;
+        width: 6em;
+        height: 4em;
+        font-size: 1em;
     }
 `
 
@@ -218,6 +226,20 @@ export const Desc = styled.div`
     span {
         font-size: 13px;
     }
+
+    @media screen and (max-width: 700px) {
+        /* background-color: blue; */
+        left: 11.4em;
+        top: -1.1em;
+
+        strong {
+        margin-bottom: 1px; /* Espaçamento entre o título e o valor */
+        font-size: 0.6em;
+        }
+        span {
+        font-size: 0.6em;
+        }
+    }
 `;
 
 
@@ -235,6 +257,18 @@ export const Tipo = styled.p<{ typeCount: number }>`
         text-align: center;
         left: 440px; /* Ajuste para centralizar completamente */
     `}
+
+    @media screen and (max-width: 700px) {
+        left: 28.9em;
+        top: 16.8em;
+        font-size: 0.3em;
+
+        ${({ typeCount }) => typeCount === 1 && `
+        left: 22.5em;
+        top: 12.2em;
+        font-size: 0.4em;
+    `}
+    }
 `;
 
 export const ID = styled.p<{ id: number }>`
@@ -254,4 +288,22 @@ export const ID = styled.p<{ id: number }>`
     ${({ id }) => id >= 100 && `
         left: 583px; /* Ajuste para centralizar completamente */
     `}
+
+@media screen and (max-width: 700px) {
+        left: 30.6em;
+        top: 12.2em;
+        font-size: 0.4em;
+
+        ${({ id }) => id >= 10 && id < 100 && `
+        left: 30.3em;
+        top: 12.2em;
+        font-size: 0.4em;
+        `}
+
+        ${({ id }) => id >= 100 && `
+        left: 30em;
+        top: 12.2em;
+        font-size: 0.4em;
+        `}
+    }
 `
